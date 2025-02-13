@@ -1,0 +1,36 @@
+
+{% extends 'base.html' %}
+
+{% block title %}{{title}}{% endblock %}}
+
+
+{% block body %}
+
+<form action="." method="post" enctype="multipart/form-data">
+
+    {% csrf_token %}
+
+    <div class="space-y-4">
+        {{ new_item.as_p }}
+    </div>
+
+    {% if new_item.errors or new_item.non_field_error %}
+
+    <div class="mb-3 p-6 bg-red-100 rounded-xl">
+
+        {% for field in new_item %}
+
+        {{field.errors}}
+        {% endfor %}
+
+    {{new_item.non_field_errors}}
+        
+    </div>
+
+    {% endif %}
+
+    <button class="py-4 px-8 text-lg bg-teal-500 hover:bg-teal-700 rounded-xl text-white" type="submit">Submit</button>
+
+</form>
+</form>
+{% endblock %}
