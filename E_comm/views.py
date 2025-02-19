@@ -23,7 +23,6 @@ def item_detail(request,pk):
     
     item = Item.objects.get(pk = pk)
     related_items = Item.objects.filter(category = item.category,is_sold=False).exclude(pk = pk)[0:3]
-    
     context = {'single_item':item,'related_items':related_items}
     
     return render(request,'items/detail.html',context)
@@ -31,7 +30,5 @@ def item_detail(request,pk):
 @login_required
 def NewItemCreate(request):
     form = NewItemForm()
-    
     context = {"new_item":form}
-    
     return render(request,'items/create.html',context)
