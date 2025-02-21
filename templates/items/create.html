@@ -1,36 +1,40 @@
-
 {% extends 'base.html' %}
-
-{% block title %}{{title}}{% endblock %}}
-
+{% block title %}Create{% endblock %}
 
 {% block body %}
-
 <form action="." method="post" enctype="multipart/form-data">
-
     {% csrf_token %}
 
-    <div class="space-y-4">
-        {{ new_item.as_p }}
+    <div class="mb-3">
+        <label for="item-name" class="form-label">Item Name</label>
+        <input type="text" class="form-control" id="item-name" name="item" placeholder="Your Item Name" required />
     </div>
 
-    {% if new_item.errors or new_item.non_field_error %}
-
-    <div class="mb-3 p-6 bg-red-100 rounded-xl">
-
-        {% for field in new_item %}
-
-        {{field.errors}}
-        {% endfor %}
-
-    {{new_item.non_field_errors}}
-        
+    <div class="mb-3">
+        <label for="category" class="form-label">Category</label>
+        <select class="form-control" id="category" name="category" required>
+            <option value="">Select a category</option> 
+            {% for i in category %}
+                <option name="category" value="{{i.id}}">{{ i.name }}</option>
+            {% endfor %}
+        </select>
     </div>
 
-    {% endif %}
+    <div class="mb-3">
+        <label for="item-price" class="form-label">Price </label>
+        <input type="number" class="form-control" id="item-price" name="price" placeholder="Price" required />
+    </div>
 
-    <button class="py-4 px-8 text-lg bg-teal-500 hover:bg-teal-700 rounded-xl text-white" type="submit">Submit</button>
+    <div class="mb-3">
+        <label for="item-description" class="form-label">Description </label>
+        <textarea class="form-control" id="item-description" name="description" placeholder="Description" required></textarea>
+    </div>
 
-</form>
+    <div class="mb-3">
+        <label for="item-image" class="form-label">Image </label>
+        <input type="file" class="form-control" id="item-image" name="image" accept="image/*" required />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 {% endblock %}
