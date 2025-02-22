@@ -11,6 +11,6 @@ urlpatterns = [
     path('user_detail/',myProducts,name = 'myProducts'),
     path('<pk>/',item_detail,name = 'item_details'),
     path('<pk>/delete/',deleteItem,name = 'delete_items'),
-    path('<pk>/delete/',editProducts,name = 'edit_items'),
+    path('<pk>/edit/',editProducts,name = 'edit_items'),
 
 ]+static(settings.MEDIA_URL,document_root =settings.MEDIA_ROOT)

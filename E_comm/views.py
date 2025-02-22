@@ -77,5 +77,4 @@ def editProducts(request,pk):
         queryset.price = price
         queryset.image = image
         queryset.save()
-        
         return redirect('/')
