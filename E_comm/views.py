@@ -70,7 +70,6 @@ def editProducts(request,pk):
         price = request.POST.get('price')
         image = request.FILES.get('image')
         category = Category.objects.get(id = category_id)
-        
         queryset.name = item
         queryset.category = category
         queryset.description = description
@@ -78,3 +77,5 @@ def editProducts(request,pk):
         queryset.image = image
         queryset.save()
         return redirect('/')
+    
+    return render(request,'edit.html')
