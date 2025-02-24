@@ -29,7 +29,7 @@
         <td>{{item.created_by}}</td>
         <td>
             <a href="{% url 'item_details' item.id %}" class="btn btn-success">View</button>
-            <a href="/" class="btn btn-primary">Edit</button>
+            <a href="{% url 'edit_items' item.id %}" class="btn btn-primary">Edit</button>
             <a href="{% url 'delete_items' item.id %}" class="btn btn-danger" on>Delete</button>
         </td>
     </tr>

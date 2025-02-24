@@ -26,13 +26,11 @@ def item_detail(request,pk):
 
 @login_required
 def NewItemCreate(request):
-    print("View function called")
     prev_category = Category.objects.all()
     context = {"category":prev_category}
     
     if request.method == "POST":
-        print("Form submitted!") 
-        name = request.POST.get('item')
+        name = request.POST.get('name')
         category_id = request.POST.get('category')
         price = request.POST.get('price')
         description = request.POST.get('description')
@@ -62,20 +60,20 @@ def myProducts(request):
 @login_required
 def editProducts(request,pk):
     queryset = Item.objects.get(pk = pk)
+    context = {"data":queryset}
     
     if request.method == "POST":
-        item = request.POST.get('item')
-        category_id = request.POST.get('category')
+        item = request.POST.get('name')
         description = request.POST.get('description')
         price = request.POST.get('price')
         image = request.FILES.get('image')
-        category = Category.objects.get(id = category_id)
         queryset.name = item
-        queryset.category = category
         queryset.description = description
         queryset.price = price
-        queryset.image = image
+        
+        if image:
+            queryset.image = image
         queryset.save()
-        return redirect('/')
+        return redirect('item_details',pk=queryset.pk)
     
-    return render(request,'edit.html')
+    return render(request,'items/edit.html',context)
