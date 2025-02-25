@@ -77,3 +77,15 @@ def editProducts(request,pk):
         return redirect('item_details',pk=queryset.pk)
     
     return render(request,'items/edit.html',context)
+
+@login_required
+def NewCategoryCreate(request):
+    
+    if request.method == "POST":
+        category = request.POST.get("category")
+        created_by = request.user
+        
+        Category.objects.create(name = category,created_by = created_by)
+        return redirect('/')
+        
+    return render(request,'items/category/create.html')

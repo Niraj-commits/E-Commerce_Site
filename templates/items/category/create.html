@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Create Category{% endblock %}
+
+{% block body %}
+<form action="." method="post">
+
+  {% csrf_token %}
+    <div class="mb-3">
+      <label for="category_name" class="form-label" >Category</label>
+      <input type="text" class="form-control" id="exampleInputEmail1" name="category">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+  {% endblock %}
