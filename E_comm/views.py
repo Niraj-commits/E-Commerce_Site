@@ -3,7 +3,6 @@ from django.shortcuts import render,redirect,HttpResponse
 from .models import *
 from django.contrib.auth.decorators import login_required
 
-
 def index(request):
     items = Item.objects.filter(is_sold = False)
     category = Category.objects.all()
@@ -30,7 +29,7 @@ def NewItemCreate(request):
     context = {"category":prev_category}
     
     if request.method == "POST":
-        name = request.POST.get('name')
+        name = request.POST.get('item')
         category_id = request.POST.get('category')
         price = request.POST.get('price')
         description = request.POST.get('description')

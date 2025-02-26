@@ -14,7 +14,7 @@
         <a href="/" class="text-xl font-semibold"> Niraj</a>
 
         <div class="space-x-6">
-            {% if request.user.is_authenticated%}
+            {% if request.user.is_authenticated %}
             <a href="{% url 'create_item' %}" class="text-lg font-semibold hover:text-gray-500">Add Item</a>
             <a href="{% url 'create_category' %}" class="text-lg font-semibold hover:text-gray-500">Add Category</a>
             <a href="{% url 'myProducts' %}" class="text-lg font-semibold hover:text-gray-500">My Products</a>
