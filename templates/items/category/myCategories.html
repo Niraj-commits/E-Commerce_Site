@@ -1,0 +1,54 @@
+
+  {% extends "base.html" %}
+
+  {% block title %}My Categories{% endblock %}
+
+  {% block body %}
+  <h1 class="text-success text-center fs-2"><strong>Hello {{user | title}}!!</strong></h1>
+  <br>
+
+  {% if messages %}
+      {% for message in messages %}
+          <div class="alert alert-{{ message.tags }} text-center">
+              {{ message }}
+          </div>
+      {% endfor %}
+  {% endif %}
+
+  <div class="col-md-4 col-12 d-flex align-items-center">
+    <h2 class="me-3 text-lg"><strong>Actions:</strong></h2>
+    {% if request.user.is_authenticated %}
+      <a href="{% url 'create_category' %}" class="btn btn-outline-secondary">+ Add Category</a>
+    {% endif %}
+  </div>
+  <br>
+  <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Sn</th>
+          <th scope="col">Name</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+          {% for category in categories %}
+        <tr>
+          <th scope="row">{{ forloop.counter }}</th>
+          <td>{{category.name}}</td>
+          <td>
+            <div class="d-flex gap-1">
+                <a href="{% url 'edit_category' category.id %}" class="btn btn-primary btn-sm m-1">
+                  Edit
+                </a>
+                <a href="{% url 'delete_category' category.id %}" class="btn btn-danger btn-sm m-1" 
+                  >
+                  Delete
+                </a>
+            </div>
+        </td>
+      </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  
+  {% endblock %}
