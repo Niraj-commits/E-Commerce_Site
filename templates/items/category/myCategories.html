@@ -22,33 +22,62 @@
     {% endif %}
   </div>
   <br>
-  <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">Sn</th>
-          <th scope="col">Name</th>
-          <th scope="col">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-          {% for category in categories %}
-        <tr>
-          <th scope="row">{{ forloop.counter }}</th>
-          <td>{{category.name}}</td>
-          <td>
-            <div class="d-flex gap-1">
-                <a href="{% url 'edit_category' category.id %}" class="btn btn-primary btn-sm m-1">
-                  Edit
-                </a>
-                <a href="{% url 'delete_category' category.id %}" class="btn btn-danger btn-sm m-1" 
-                  >
-                  Delete
-                </a>
+  <table class="table table-hover text-center border-1">
+    <thead class="table-info">
+      <tr>
+        <th scope="col">Sn</th>
+        <th scope="col">Name</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for category in categories %}
+      <tr>
+        <th scope="row">{{ forloop.counter }}</th>
+        <td>{{ category.name }}</td>
+        <td>
+          <div class="d-flex gap-2 justify-content-center">
+            <!-- Edit Button -->
+            <a href="{% url 'edit_category' category.id %}" class="btn btn-primary btn-sm w-auto text-white">
+              Edit
+            </a>
+  
+            <!-- Delete Button -->
+            <button type="button" class="btn btn-danger btn-sm w-auto" data-bs-toggle="modal" 
+              data-bs-target="#exampleModal{{ category.id }}">
+              Delete
+            </button>
+          </div>
+  
+          <!-- Modal (Unique for Each Category) -->
+          <div class="modal fade" id="exampleModal{{ category.id }}" tabindex="-1" 
+            aria-labelledby="exampleModalLabel{{ category.id }}" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel{{ category.id }}">Delete Category</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  Are You Sure You Want to Delete This Category?
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary btn-sm w-auto" data-bs-dismiss="modal">
+                    Close
+                  </button>
+                  <a href="{% url 'delete_category' category.id %}" class="btn btn-danger btn-sm w-auto">
+                    Delete
+                  </a>
+                </div>
+              </div>
             </div>
+          </div>
+  
         </td>
       </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+      {% endfor %}
+    </tbody>
+  </table>
+  
   
   {% endblock %}
