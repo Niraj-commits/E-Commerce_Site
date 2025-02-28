@@ -6,15 +6,8 @@
   {% block body %}
   <h1 class="text-success text-center fs-2"><strong>Hello {{user | title}}!!</strong></h1>
   <br>
-
-  {% if messages %}
-      {% for message in messages %}
-          <div class="alert alert-{{ message.tags }} text-center">
-              {{ message }}
-          </div>
-      {% endfor %}
-  {% endif %}
-
+ 
+    
   <div class="col-md-4 col-12 d-flex align-items-center">
     <h2 class="me-3 text-lg"><strong>Actions:</strong></h2>
     {% if request.user.is_authenticated %}
@@ -58,11 +51,11 @@
                   <h5 class="modal-title" id="exampleModalLabel{{ category.id }}">Delete Category</h5>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body text-left">
                   Are You Sure You Want to Delete This Category?
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary btn-sm w-auto" data-bs-dismiss="modal">
+                  <button type="button" class="btn btn-primary btn-sm w-auto" data-bs-dismiss="modal">
                     Close
                   </button>
                   <a href="{% url 'delete_category' category.id %}" class="btn btn-danger btn-sm w-auto">

@@ -33,13 +33,15 @@ def NewProduct(request):
         name = request.POST.get('item')
         category_id = request.POST.get('category')
         price = request.POST.get('price')
+        quantity = request.POST.get('quantity')
         description = request.POST.get('description')
         created_by = request.user
         image = request.FILES.get('image')
         category = Category.objects.get(id = category_id)
         
-        Item.objects.create(name = name,category = category,description= description,image= image,price = price,created_by = created_by)
-        return redirect('/')
+        Item.objects.create(name = name,category = category,description= description,image= image,price = price,quantity = quantity,created_by = created_by)
+        messages.success(request,"Product Created!!!")
+        return redirect('myProducts')
     return render(request,'items/Products/create.html',context)
 
 @login_required
@@ -86,7 +88,8 @@ def NewCategory(request):
         created_by = request.user
         
         Category.objects.create(name = category,created_by = created_by)
-        return redirect('/')
+        messages.success(request, "Category Created successfully.")
+        return redirect('MyCategories')
         
     return render(request,'items/category/create.html')
 
@@ -113,15 +116,11 @@ def EditCategory(request,pk):
 @login_required
 def DeleteCategory(request,pk):
     queryset = Category.objects.get(pk = pk)
-    
-    if Item.objects.filter(category = queryset).exists():
+    occurence = Item.objects.filter(category = queryset).count()
+    if occurence>0:
         messages.error(request, "Sorry, this category is in use and cannot be deleted.")
-    
-    try:
+    else:
         queryset.delete()
         messages.success(request, "Category deleted successfully.")
-    
-    except:
-        messages.error(request,"Error Occured")
     
     return redirect("MyCategories")

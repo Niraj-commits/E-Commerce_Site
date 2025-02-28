@@ -3,7 +3,7 @@
 {% block title %}My Items{% endblock %}
 
 {% block body %}
-<h1 class="text-success text-center fs-2"><strong>Hello {{user | title}}!!</strong></h1>
+<h1 class="text-success text-center fs-2"><strong>Your Products</strong></h1>
 <br>
 <div class="container py-4">
   <div class="row align-items-center g-3">
@@ -47,6 +47,7 @@
       <th scope="col">Sn</th>
       <th scope="col">Name</th>
       <th scope="col">Price</th>
+      <th scope="col">Quantity</th>
       <th scope="col">Category</th>
       <th scope="col">Description</th>
       <th scope="col">Created_at</th>
@@ -59,6 +60,7 @@
       <th scope="row">{{ forloop.counter }}</th>
       <td>{{item.name}}</td>
       <td>{{item.price}}</td>
+      <td>{{item.quantity}}</td>
       <td>{{item.category}}</td>
       <td>{{item.description}}</td>
       <td>{{item.created_at}}</td>
@@ -85,11 +87,11 @@
                 <h5 class="modal-title" id="exampleModalLabel">Delete Item</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
-              <div class="modal-body">
+              <div class="modal-body text-left">
                 Are You Sure???
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary btn-sm w-auto" data-bs-dismiss="modal">
+                <button type="button" class="btn btn-primary btn-sm w-auto" data-bs-dismiss="modal">
                   Close
                 </button>
                 <a href="{% url 'delete_items' item.id %}" class="btn btn-danger btn-sm w-auto">
