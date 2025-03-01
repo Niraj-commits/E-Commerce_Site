@@ -1,61 +1,67 @@
 {% extends "base.html" %}
 
-{% block title %} {{single_item.name}}{% endblock title %}
+{% block title %} {{ single_item.name }}{% endblock title %}
 
 {% block body %}
 
-<div class="container mt-2">
-    <h2 class="mb-3 text-center fs-1"><strong>Product</strong></h2>
+<div class="container mt-5">
+    <!-- Product Header -->
+    <h2 class="mb-4 text-center fs-1"><strong>Product Details</strong></h2>
 
-    <div class="row mb-4 m-2 p-4 rounded-xl">
-        <div class="col-md-6 d-flex justify-content-center p-3">
-            <img src="{{ single_item.image.url }}" alt="image" class="img-fluid rounded-xl" style="max-height: 400px; object-fit: cover;">
-        </div>
-        <div class="col-md-6 p-4 bg-light rounded-xl">
-            <h1 class="mb-4 text-center fs-1"><strong>{{ single_item.name }}</strong></h1>
-            <p class="fs-4 text-dark"><strong>Price: </strong> {{ single_item.price }}</p>
-            <p class="fs-4"><strong>Seller: </strong> {{ single_item.created_by }}</p>
-            <p class="fs-4"><strong>Quantity: </strong> {{ single_item.quantity }}</p>
-
-            {% if single_item.description %}
-                <p class="fs-4"><strong>Description: </strong><br> {{ single_item.description }}</p>
-            {% endif %}
-
-            <a href="#" class="btn btn-teal mt-4 w-100">Contact Seller</a>
-        </div>
+<!-- Product Section -->
+<div class="row mb-4 m-2 p-4 rounded-xl shadow-lg">
+    <!-- Image Section -->
+    <div class="col-md-6 d-flex justify-content-center p-3" style="border-right: 2px solid #ddd;">
+        <img src="{{ single_item.image.url }}" alt="image" class="img-fluid rounded-3 shadow-sm" style="max-height: 400px; object-fit: cover;">
     </div>
+
+    <!-- Details Section -->
+    <div class="col-md-6 p-4 bg-light rounded-xl">
+        <h1 class="mb-4 text-center fs-2"><strong>{{ single_item.name }}</strong></h1>
+        <p class="fs-4 text-dark"><strong>Price: </strong> {{ single_item.price }}</p>
+        <p class="fs-4"><strong>Seller: </strong> {{ single_item.created_by }}</p>
+        <p class="fs-4"><strong>Quantity: </strong> {{ single_item.quantity }}</p>
+
+        {% if single_item.description %}
+            <p class="fs-4"><strong>Description: </strong><br> {{ single_item.description }}</p>
+        {% endif %}
+
+        <a href="#" class="btn btn-primary mt-4 w-100">Contact Seller</a>
+    </div>
+</div>
 <hr>
-    <!-- Related Items section -->
-    <div class="mt-6">
-        <h2 class="mb-3 text-center fs-1"><strong>Related Items</strong></h2>
 
-    
-        <div class="row">
-            {% for item in related_items %}
-            <div class="col-md-4 mb-4">
-                <a href="{% url 'item_details' item.id %}" class="card shadow-sm" style="height: 400px;">
-                    <!-- Update the object-fit to 'contain' to see the entire image -->
-                    <img src="{{ item.image.url }}" alt="image" class="card-img-top" style="height: 60%; object-fit: contain;">
-                    <div class="card-body" style="flex-grow: 1;">
-                        <h5 class="card-title">{{ item.name }}</h5>
-                        <p class="card-text">Price: {{ item.price }}</p>
-                    </div>
-                </a>
+<!-- Related Items -->
+<div class="container mt-5">
+    <h2 class="mb-4 text-center fs-1">Related Items</h2>
+    <div class="row"> 
+        {% for item in related_items %}
+        <div class="col-md-4 mb-4"> 
+            <div class="card item-detail-card"> 
+                <img src="{{ item.image.url }}" class="card-img-top item-detail-image" alt="{{ item.name }}">
+                <div class="card-body">
+                    <h5 class="card-title item-detail-title">{{ item.name }}</h5>
+                    <p class="card-text item-detail-price">Price: Rs. {{ item.price }} </p>
+                    <p class="card-text item-detail-availability">Available: {% if item.quantity > 0 %}Yes{% else %}No{% endif %}</p> 
+                    <a href="{% url 'item_details' item.id %}" class="btn btn-primary item-detail-view-details-btn">View Details</a>
+                </div>
             </div>
-            {% endfor %}
         </div>
+        {% endfor %}
     </div>
-    <hr>
-    <!-- Reviews section -->
-    <div class="mt-6">
-        <h2 class="mb-3 text-center fs-1"><strong>Customer Reviews</strong></h2>
+</div>
 
-        <!-- Placeholder for reviews, you can dynamically generate reviews here -->
-        <div class="card">
+    <!-- Reviews Section -->
+    <div class="mt-6">
+        <h2 class="mb-4 text-center fs-1"><strong>Customer Reviews</strong></h2>
+
+        <!-- Placeholder for reviews -->
+        <div class="card shadow-sm mb-4">
             <div class="card-body">
                 <p><strong>Review by User:</strong> Excellent product! Highly recommended.</p>
             </div>
         </div>
+        <!-- You can add more review cards here -->
     </div>
 
 </div>

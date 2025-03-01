@@ -2,44 +2,48 @@
 {% block title %}Create{% endblock %}
 
 {% block body %}
-<form action="." method="post" enctype="multipart/form-data" >
-    {% csrf_token %}
-    
-    <div class="mb-3">
-        <label for="item-name" class="form-label">Item Name</label>
-        <input type="text" class="form-control" id="item-name" name="item" placeholder="Your Item Name" required />
-    </div>
+<div class="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg">
+    <form action="." method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <div class="mb-6">
+            <label for="item-name" class="block text-lg font-semibold text-gray-700">Item Name</label>
+            <input type="text" class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500" id="item-name" name="item" placeholder="Your Item Name" required />
+        </div>
 
-    <div class="mb-3">
-        <label for="category" class="form-label">Category</label>
-        <select class="form-control" id="category" name="category" required>
-            <option value="">Select a category</option> 
-            {% for i in category %}
-                <option name="category" value="{{i.id}}">{{ i.name }}</option>
-            {% endfor %}
-        </select>
-    </div>
+        <div class="mb-6">
+            <label for="category" class="block text-lg font-semibold text-gray-700">Category</label>
+            <select class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500" id="category" name="category" required>
+                <option value="">Select a category</option>
+                {% for i in category %}
+                    <option value="{{ i.id }}">{{ i.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
 
-    <div class="mb-3">
-        <label for="item-price" class="form-label">Price </label>
-        <input type="number" class="form-control" id="item-price" name="price" placeholder="Price" required />
-    </div>
+        <div class="mb-6">
+            <label for="item-price" class="block text-lg font-semibold text-gray-700">Price</label>
+            <input type="number" class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500" id="item-price" name="price" placeholder="Price" required />
+        </div>
 
-    <div class="mb-3">
-        <label for="item-price" class="form-label">Quantity </label>
-        <input type="number" class="form-control" id="item-quantity" name="quantity" placeholder="quantity" required />
-    </div>
+        <div class="mb-6">
+            <label for="item-quantity" class="block text-lg font-semibold text-gray-700">Quantity</label>
+            <input type="number" class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500" id="item-quantity" name="quantity" placeholder="Quantity" required />
+        </div>
 
-    <div class="mb-3">
-        <label for="item-description" class="form-label">Description </label>
-        <textarea class="form-control" id="item-description" name="description" placeholder="Description" required></textarea>
-    </div>
+        <div class="mb-6">
+            <label for="item-description" class="block text-lg font-semibold text-gray-700">Description</label>
+            <textarea class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500" id="item-description" name="description" placeholder="Description" required></textarea>
+        </div>
 
-    <div class="mb-3">
-        <label for="item-image" class="form-label">Image </label>
-        <input type="file" class="form-control" id="item-image" name="image" accept="image/*" required />
-    </div>
+        <div class="mb-6">
+            <label for="item-image" class="block text-lg font-semibold text-gray-700">Image</label>
+            <input type="file" class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500" id="item-image" name="image" accept="image/*" required />
+        </div>
 
-    <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+        <button type="submit" class="w-full py-3 bg-teal-500 text-white font-semibold rounded-lg hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500">
+            Submit
+        </button>
+    </form>
+</div>
 {% endblock %}

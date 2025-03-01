@@ -3,36 +3,41 @@
 {% block title %}Edit {{ data.name }}{% endblock title %}
 
 {% block body %}
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
 
-<div class="grid grid-cols-5 gap-6">
-    <div class="col-span-3">
-        <img src="{{ data.image.url }}" alt="image" class="rounded-xl" id="preview-image">
+    <!-- Image Section -->
+    <div class="col-span-1">
+        <img src="{{ data.image.url }}" alt="image" class="rounded-xl shadow-lg w-full h-auto">
     </div>
     
-    <div class="col-span-2 p-6 bg-gray-100 rounded-xl">
+    <!-- Form Section -->
+    <div class="col-span-1 p-8 bg-gray-100 rounded-xl shadow-md">
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
-
-            <label class="block text-lg font-semibold">Name:</label>
-            <input type="text" name="name" value="{{ data.name }}" class="w-full p-2 mb-4 border rounded">
-
-            <label class="block text-lg font-semibold">Price:</label>
-            <input type="number" name="price" value="{{ data.price }}" class="w-full p-2 mb-4 border rounded">
-
-            <label class="block text-lg font-semibold">Seller:</label>
-            <input type="text" name="created_by" value="{{ data.created_by }}" class="w-full p-2 mb-4 border rounded" readonly>
-
-            <label class="block text-lg font-semibold">Description:</label>
-            <textarea name="description" class="w-full p-2 mb-4 border rounded">{{ data.description }}</textarea>
-
-            <label class="block text-lg font-semibold">Image:</label>
-            <input type="file" name="image" class="w-full p-2 mb-4 border rounded">
             
-            <button type="submit" class="mt-6 px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">
+            <!-- Name Input -->
+            <label class="block text-lg font-semibold text-gray-700">Name:</label>
+            <input type="text" name="name" value="{{ data.name }}" class="w-full p-3 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500">
+
+            <!-- Price Input -->
+            <label class="block text-lg font-semibold text-gray-700">Price:</label>
+            <input type="number" name="price" value="{{ data.price }}" class="w-full p-3 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500">
+
+            <!-- Description Input -->
+            <label class="block text-lg font-semibold text-gray-700">Description:</label>
+            <textarea name="description" class="w-full p-3 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500">{{ data.description }}</textarea>
+
+            <!-- Image Upload Input -->
+            <label class="block text-lg font-semibold text-gray-700">Image:</label>
+            <input type="file" name="image" class="w-full p-3 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500">
+
+            <!-- Save Button -->
+            <button type="submit" class="mt-6 px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-lg hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500">
                 Save Changes
             </button>
         </form>
     </div>
+
 </div> 
 
 {% endblock body %}

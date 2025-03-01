@@ -39,9 +39,14 @@ def NewProduct(request):
         image = request.FILES.get('image')
         category = Category.objects.get(id = category_id)
         
-        Item.objects.create(name = name,category = category,description= description,image= image,price = price,quantity = quantity,created_by = created_by)
-        messages.success(request,"Product Created!!!")
-        return redirect('myProducts')
+        intQuantity = int(quantity)
+        intPrice = int(price)
+        if intQuantity >0 and intPrice > 0:
+            Item.objects.create(name = name,category = category,description= description,image= image,price = price,quantity = quantity,created_by = created_by)
+            messages.success(request,"Product Created!!!")
+            return redirect('myProducts')
+        else:
+            messages.error(request,"Quantity and price Cannot be less than 0")
     return render(request,'items/Products/create.html',context)
 
 @login_required
@@ -76,7 +81,7 @@ def EditProducts(request,pk):
         if image:
             queryset.image = image
         queryset.save()
-        return redirect('item_details',pk=queryset.pk)
+        return redirect('myProducts')
     
     return render(request,'items/Products/edit.html',context)
 
@@ -124,3 +129,7 @@ def DeleteCategory(request,pk):
         messages.success(request, "Category deleted successfully.")
     
     return redirect("MyCategories")
+
+@login_required
+def AddToCart(request):
+    pass
