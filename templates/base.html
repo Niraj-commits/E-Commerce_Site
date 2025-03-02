@@ -12,26 +12,68 @@
 </head>
 <body>
 
-    <nav class="navbar px-6 py-4">
-        <a href="/" class="text-xl font-semibold">Niraj</a>
-
-        <div class="space-x-6">
+    <nav class="flex justify-between items-center px-6 py-4 bg-white shadow-md">
+        <!-- Brand Name -->
+        <a href="/" class="text-2xl font-bold text-gray-800 tracking-wide hover:text-blue-600 transition duration-300">
+            Easy Buy
+        </a>
+    
+        <!-- Navigation Links -->
+        <div class="flex items-center space-x-6">
             {% if request.user.is_authenticated %}
-                {% if request.user.role == "seller" %} 
-                    <a href="{% url 'MyCategories' %}" class="text-lg font-semibold hover:text-gray-300">My Categories</a>
-                    <a href="{% url 'myProducts' %}" class="text-lg font-semibold hover:text-gray-300">My Products</a>
-                    <a href="{% url 'logout' %}" class="ext-lg font-semibold hover:text-gray-300">Logout</a>
+                {% if request.user.role == "seller" %}
+                    <a href="{% url 'MyCategories' %}" class="text-lg font-medium text-gray-700 hover:text-blue-600 transition duration-300">My Categories</a>
+                    <a href="{% url 'myProducts' %}" class="text-lg font-medium text-gray-700 hover:text-blue-600 transition duration-300">My Products</a>
+                    <a href="{% url 'logout' %}" class="text-lg font-medium text-gray-700 hover:text-red-600 transition duration-300">Logout</a>
                 {% else %}
-                    <a href="/" class="ext-lg font-semibold hover:text-gray-300">Cart</a>
-                    <a href="{% url 'logout' %}" class="ext-lg font-semibold hover:text-gray-300">Logout</a>
+                    <a href="/" class="text-lg font-medium text-gray-700 hover:text-blue-600 transition duration-300">Cart</a>
+                    <a href="{% url 'logout' %}" class="text-lg font-medium text-gray-700 hover:text-red-600 transition duration-300">Logout</a>
                 {% endif %}
             {% else %}
-                <a href="{% url 'login' %}" class="px-4 py-3 text-lg font-semibold bg-gray-500 text-white rounded-xl hover:bg-gray-700">Login</a>
-                <a href="{% url 'register_buyer' %}" class="px-4 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">Register Buyer</a>
-                <a href="{% url 'register_seller' %}" class="px-4 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">Register Seller</a>
+                <!-- Login & Register Buttons -->
+                <div class="flex items-center space-x-4">
+                    <a href="{% url 'login' %}" class="px-4 py-2 text-lg font-semibold bg-gray-600 text-white rounded-lg shadow-md hover:bg-gray-700 transition duration-300">
+                        Login
+                    </a>
+                    <button type="button" class="px-4 py-2 text-lg font-semibold bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition duration-300"
+                        data-bs-toggle="modal" data-bs-target="#registerModal">
+                        Register
+                    </button>
+                </div>
             {% endif %}
         </div>
     </nav>
+    
+    <!-- Registration Modal -->
+    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-white rounded-xl shadow-lg">
+                <!-- Modal Header -->
+                <div class="modal-header border-b p-4 flex justify-between items-center">
+                    <h5 class="modal-title text-xl font-bold text-gray-800" id="registerModalLabel">Register</h5>
+                    <button type="button" class="text-gray-500 hover:text-gray-700 transition" data-bs-dismiss="modal" aria-label="Close">
+                        ✖
+                    </button>
+                </div>
+    
+                <!-- Modal Body -->
+                <div class="modal-body text-gray-700 text-center p-6">
+                    <p class="text-lg">How do you want to register?</p>
+                </div>
+    
+                <!-- Modal Footer -->
+                <div class="modal-footer border-t p-4 flex justify-center space-x-4">
+                    <a href="{% url 'register_buyer' %}" class="px-5 py-2 text-lg font-semibold text-white bg-blue-500 hover:bg-blue-600 rounded-lg shadow-md transition duration-300">
+                        Buyer
+                    </a>
+                    <a href="{% url 'register_seller' %}" class="px-5 py-2 text-lg font-semibold text-white bg-green-500 hover:bg-green-600 rounded-lg shadow-md transition duration-300">
+                        Seller
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
 
     <div class="px-6 py-6">
         <!-- Toastify Notifications -->

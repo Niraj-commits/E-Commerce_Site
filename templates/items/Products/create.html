@@ -2,18 +2,26 @@
 {% block title %}Create{% endblock %}
 
 {% block body %}
-<div class="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg">
+<div class="max-w-2xl mx-auto bg-white shadow-md rounded-lg p-6 mt-8">
+    <h2 class="text-xl font-semibold text-gray-800 mb-4 text-center">Add New Item</h2>
+
     <form action="." method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        
-        <div class="mb-6">
-            <label for="item-name" class="block text-lg font-semibold text-gray-700">Item Name</label>
-            <input type="text" class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500" id="item-name" name="item" placeholder="Your Item Name" required />
+
+        <!-- Item Name -->
+        <div class="mb-4">
+            <label for="item-name" class="block text-md font-medium text-gray-700">Item Name</label>
+            <input type="text" id="item-name" name="item" 
+                   class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-1 focus:ring-teal-500 focus:border-teal-500 transition duration-200" 
+                   placeholder="Enter item name" required />
         </div>
 
-        <div class="mb-6">
-            <label for="category" class="block text-lg font-semibold text-gray-700">Category</label>
-            <select class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500" id="category" name="category" required>
+        <!-- Category -->
+        <div class="mb-4">
+            <label for="category" class="block text-md font-medium text-gray-700">Category</label>
+            <select id="category" name="category" 
+                    class="w-full p-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 focus:ring-1 focus:ring-teal-500 focus:border-teal-500 transition duration-200" 
+                    required>
                 <option value="">Select a category</option>
                 {% for i in category %}
                     <option value="{{ i.id }}">{{ i.name }}</option>
@@ -21,27 +29,41 @@
             </select>
         </div>
 
-        <div class="mb-6">
-            <label for="item-price" class="block text-lg font-semibold text-gray-700">Price</label>
-            <input type="number" class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500" id="item-price" name="price" placeholder="Price" required />
+        <!-- Price -->
+        <div class="mb-4">
+            <label for="item-price" class="block text-md font-medium text-gray-700">Price</label>
+            <input type="number" id="item-price" name="price" 
+                   class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-1 focus:ring-teal-500 focus:border-teal-500 transition duration-200" 
+                   placeholder="Enter price" required />
         </div>
 
-        <div class="mb-6">
-            <label for="item-quantity" class="block text-lg font-semibold text-gray-700">Quantity</label>
-            <input type="number" class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500" id="item-quantity" name="quantity" placeholder="Quantity" required />
+        <!-- Quantity -->
+        <div class="mb-4">
+            <label for="item-quantity" class="block text-md font-medium text-gray-700">Quantity</label>
+            <input type="number" id="item-quantity" name="quantity" 
+                   class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-1 focus:ring-teal-500 focus:border-teal-500 transition duration-200" 
+                   placeholder="Enter quantity" required />
         </div>
 
-        <div class="mb-6">
-            <label for="item-description" class="block text-lg font-semibold text-gray-700">Description</label>
-            <textarea class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500" id="item-description" name="description" placeholder="Description" required></textarea>
+        <!-- Description -->
+        <div class="mb-4">
+            <label for="item-description" class="block text-md font-medium text-gray-700">Description</label>
+            <textarea id="item-description" name="description" 
+                      class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-1 focus:ring-teal-500 focus:border-teal-500 transition duration-200" 
+                      placeholder="Enter item description" required></textarea>
         </div>
 
-        <div class="mb-6">
-            <label for="item-image" class="block text-lg font-semibold text-gray-700">Image</label>
-            <input type="file" class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-teal-500" id="item-image" name="image" accept="image/*" required />
+        <!-- Image Upload -->
+        <div class="mb-4">
+            <label for="item-image" class="block text-md font-medium text-gray-700">Upload Image</label>
+            <input type="file" id="item-image" name="image" accept="image/*" 
+                   class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-1 focus:ring-teal-500 focus:border-teal-500 transition duration-200" 
+                   required />
         </div>
 
-        <button type="submit" class="w-full py-3 bg-teal-500 text-white font-semibold rounded-lg hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500">
+        <!-- Submit Button -->
+        <button type="submit" 
+                class="w-full py-2.5 bg-teal-500 text-white font-semibold rounded-md shadow-md hover:bg-teal-600 focus:ring-2 focus:ring-teal-500 transition duration-200">
             Submit
         </button>
     </form>

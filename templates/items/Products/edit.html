@@ -6,33 +6,33 @@
 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
 
     <!-- Image Section -->
-    <div class="col-span-1">
-        <img src="{{ data.image.url }}" alt="image" class="rounded-xl shadow-lg w-full h-auto">
+    <div class="col-span-1 flex justify-center items-center">
+        <img src="{{ data.image.url }}" alt="image" class="rounded-xl shadow-lg w-90 h-90 object-cover">
     </div>
     
     <!-- Form Section -->
-    <div class="col-span-1 p-8 bg-gray-100 rounded-xl shadow-md">
+    <div class="col-span-1 p-6 bg-gray-100 rounded-xl shadow-lg border border-gray-300">
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             
             <!-- Name Input -->
             <label class="block text-lg font-semibold text-gray-700">Name:</label>
-            <input type="text" name="name" value="{{ data.name }}" class="w-full p-3 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500">
+            <input type="text" name="name" value="{{ data.name }}" class="w-full p-2 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 transition duration-300 ease-in-out">
 
             <!-- Price Input -->
             <label class="block text-lg font-semibold text-gray-700">Price:</label>
-            <input type="number" name="price" value="{{ data.price }}" class="w-full p-3 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500">
+            <input type="number" name="price" value="{{ data.price }}" class="w-full p-2 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 transition duration-300 ease-in-out">
 
             <!-- Description Input -->
             <label class="block text-lg font-semibold text-gray-700">Description:</label>
-            <textarea name="description" class="w-full p-3 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500">{{ data.description }}</textarea>
+            <textarea name="description" class="w-full p-2 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 transition duration-300 ease-in-out">{{ data.description }}</textarea>
 
             <!-- Image Upload Input -->
             <label class="block text-lg font-semibold text-gray-700">Image:</label>
-            <input type="file" name="image" class="w-full p-3 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500">
+            <input type="file" name="image" class="w-full p-2 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 transition duration-300 ease-in-out">
 
             <!-- Save Button -->
-            <button type="submit" class="mt-6 px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-lg hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500">
+            <button type="submit" class="mt-6 px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-lg hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500 transition duration-300 ease-in-out">
                 Save Changes
             </button>
         </form>

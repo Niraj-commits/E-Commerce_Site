@@ -56,10 +56,10 @@ def CustomLogin(request):
             if user.role == 'seller':
                 return redirect('/')
             elif user.role == 'buyer':
-                return redirect('buyer_dashboard')
+                return redirect('/')
         else:
             messages.error(request, "Invalid username or password.")
-            return redirect('custom_login')
+            return redirect('/')
     return render(request,"authentication/login.html")
         
 def logout(request):
