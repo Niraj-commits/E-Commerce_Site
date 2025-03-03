@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     #Custom Apps
     'core',
     'E_comm',
+    'django_filters',
 ]
 
 MIDDLEWARE = [

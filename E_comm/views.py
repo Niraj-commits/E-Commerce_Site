@@ -1,8 +1,9 @@
 from django.shortcuts import render,redirect,HttpResponse
 # Create your views here.
 from .models import *
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required,user_passes_test
 from django.contrib import messages
+from .filters import ItemFilter
 
 def home(request):
     items = Item.objects.filter(is_sold = False)
@@ -24,7 +25,15 @@ def ViewProduct(request,pk):
     
     return render(request,'items/Products/detail.html',context)
 
+# To Check if the user is seller or not
+def is_seller(user):
+    return user.role == "seller"
+
+def is_buyer(user):
+    return user.role == "buyer"
+
 @login_required
+@user_passes_test(is_seller)
 def NewProduct(request):
     prev_category = Category.objects.all()
     context = {"category":prev_category}
@@ -50,21 +59,26 @@ def NewProduct(request):
     return render(request,'items/Products/create.html',context)
 
 @login_required
+@user_passes_test(is_seller)
 def DeleteProducts(request,pk):
     queryset = Item.objects.get(pk = pk)
     user = request.user
     if queryset.created_by == user:
         queryset.delete()
-        return redirect('/')
+        return redirect('myProducts')
 
 @login_required
+@user_passes_test(is_seller)
 def MyProducts(request):
     user = request.user
-    queryset = Item.objects.filter(created_by = user)
-    context = {"items":queryset}
+    Items = Item.objects.filter(created_by = user)
+    item_filter = ItemFilter(request.GET, queryset=Items)
+    print(item_filter.qs)
+    context = {"filter": item_filter}
     return render(request,'items/Products/myProducts.html',context)
 
 @login_required
+@user_passes_test(is_seller)
 def EditProducts(request,pk):
     queryset = Item.objects.get(pk = pk)
     context = {"data":queryset}
@@ -86,6 +100,7 @@ def EditProducts(request,pk):
     return render(request,'items/Products/edit.html',context)
 
 @login_required
+@user_passes_test(is_seller)
 def NewCategory(request): 
     
     if request.method == "POST":
@@ -99,6 +114,7 @@ def NewCategory(request):
     return render(request,'items/category/create.html')
 
 @login_required
+@user_passes_test(is_seller)
 def ViewCategory(request):
     user = request.user
     queryset = Category.objects.filter(created_by = user)
@@ -106,6 +122,7 @@ def ViewCategory(request):
     return render(request,'items/category/myCategories.html',context)
 
 @login_required
+@user_passes_test(is_seller)
 def EditCategory(request,pk):
     queryset = Category.objects.get(pk = pk)
     context = {"category":queryset}
@@ -119,6 +136,7 @@ def EditCategory(request,pk):
     return render(request,"items/category/edit.html",context)
 
 @login_required
+@user_passes_test(is_seller)
 def DeleteCategory(request,pk):
     queryset = Category.objects.get(pk = pk)
     occurence = Item.objects.filter(category = queryset).count()
@@ -131,5 +149,8 @@ def DeleteCategory(request,pk):
     return redirect("MyCategories")
 
 @login_required
+@user_passes_test(is_buyer)
 def AddToCart(request):
     pass
+
+

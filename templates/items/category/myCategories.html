@@ -3,8 +3,7 @@
 {% block title %}My Categories{% endblock %}
 
 {% block body %}
-<h1 class="text-center text-success fs-2 fw-bold">Your Categories</h1>
-<br>
+<h1 class="text-center text-success fs-2 fw-bold mb-2">Your Categories</h1>
 
 <div class="container py-4">
   <div class="row align-items-center g-3">
@@ -16,15 +15,12 @@
       <a href="{% url 'create_category' %}" class="btn btn-warning text-dark fw-bold shadow-sm">+ Add Category</a>
       {% endif %}
     </div>
-    
   </div>
 </div>
 
-<br>
-
 <!-- Styled Table -->
-<table class="table table-hover text-center border rounded shadow-sm">
-  <thead >
+<table class="table table-hover text-center border rounded shadow-sm mt-2">
+  <thead class="table-dark">
     <tr>
       <th scope="col">Sn</th>
       <th scope="col">Name</th>
@@ -42,26 +38,24 @@
           <a href="{% url 'edit_category' category.id %}" class="btn btn-outline-primary btn-sm shadow-sm">Edit</a>
 
           <!-- Delete Button -->
-          <button type="button" class="btn btn-outline-danger btn-sm shadow-sm" data-bs-toggle="modal" 
-            data-bs-target="#deleteModal{{ category.id }}">
+          <button type="button" class="btn btn-outline-danger btn-sm shadow-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
             Delete
           </button>
         </div>
 
-        <!-- Modal -->
-        <div class="modal fade" id="deleteModal{{ category.id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ category.id }}" aria-hidden="true">
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog">
-            <div class="modal-content shadow-lg">
-              <div class="modal-header bg-danger text-white">
-                <h5 class="modal-title fw-bold" id="deleteModalLabel{{ category.id }}">Delete Category</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="modal-content bg-white border border-red-100 shadow-lg rounded-lg">
+              <div class="modal-header bg-red-500 border-b border-red-400 text-gray-700 p-3">
+                <h5 class="modal-title text-lg font-semibold text-light" id="exampleModalLabel">Delete</h5>
+                <button type="button" class="btn-close text-gray-700" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
-              <div class="modal-body text-center">
-                <p class="fw-bold">Are you sure you want to delete the category <span class="text-danger">{{ category.name }}</span>?</p>
+              <div class="modal-body p-3 text-gray-700">
+                Are you sure you want to delete it?
               </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary btn-sm shadow-sm" data-bs-dismiss="modal">Cancel</button>
-                <a href="{% url 'delete_category' category.id %}" class="btn btn-danger btn-sm shadow-sm">Delete</a>
+              <div class="modal-footer p-3 space-x-2">
+                <button type="button" class="btn btn-primary text-light hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-gray-400 rounded-md px-4 py-1" data-bs-dismiss="modal">Close</button>
+                <a href="{% url 'delete_category' category.id %}" class="btn btn-danger bg-red-500 text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-300 rounded-md px-4 py-1 shadow-sm">Delete</a>
               </div>
             </div>
           </div>

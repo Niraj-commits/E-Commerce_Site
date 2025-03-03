@@ -3,43 +3,45 @@
 
 {% block body %}
 
-<div class="container mt-5">
+<div class="container mt-1">
     <!-- Newest Items Section -->
     <div class="p-5 rounded-xl mb-5 shadow-lg section-bg">
-        <h2 class="text-center mb-4 display-4 section-title"><strong>Newest Items</strong></h2>
-
+        <h2 class="text-center mb-4 text-4xl font-bold section-title"><strong>Newest Items</strong></h2>
+    
         <div class="row row-cols-1 row-cols-md-3 g-4">
             {% for item in total_items %}
             <div class="col">
-                <a href="{% url 'item_details' item.id %}" class="card text-decoration-none shadow-sm rounded-3 item-card h-100">
+                <div class="card text-decoration-none shadow-lg rounded-xl item-card h-100 ">
                     
-                    <!-- Image section -->
-                    <div class="card-img-top item-image">
-                        <img src="{{ item.image.url }}" alt="image" class="img-fluid">
+                    <!-- Image section with padding only on the left and right -->
+                    <div class="card-img-top item-image px-4 overflow-hidden pt-2">
+                        <img src="{{ item.image.url }}" alt="image" class="w-full h-64 object-contain rounded-lg">
                     </div>
                     
-                    <div class="card-body d-flex flex-column item-details">
-                        <h5 class="card-title text-primary fs-5">{{ item.name }}</h5>
-                        <p class="card-text text-muted">Price: <strong>{{ item.price }}</strong></p>
-                        
+                    <div class="card-body d-flex flex-column item-details p-4">
+                        <h5 class="card-title text-primary font-semibold text-lg">{{ item.name }}</h5>
+                        <p class="card-text text-muted">Price: <strong class="text-dark">{{ item.price }}</strong></p>
+                        <p class="card-text text-muted">Seller: <strong class="text-dark">{{ item.created_by }}</strong></p>
                         {% if item.quantity > 0 %}
-                            <p class="card-text text-muted">Available: <strong class="text-success">Yes</strong></p>
+                            <p class="card-text text-muted pb-1">Available: <strong class="text-success">Yes</strong></p>
                         {% else %}
-                            <p class="card-text text-muted">Available: <strong class="text-danger">No</strong></p>
+                            <p class="card-text text-muted pb-1">Available: <strong class="text-danger">No</strong></p>
                         {% endif %}
                         
                         <div class="d-flex flex-column mt-auto">
-                            <!-- View Details Button -->
-                            <button class="btn btn-info w-100 mb-2">View Details</button>
+                            <!-- View Details Button with anchor tag for redirection -->
+                            <a href="{% url 'item_details' item.id %}" class="btn btn-info w-full py-2 mb-2 text-white font-semibold">View Details</a>
+                            <a href="/" class="btn btn-success w-full py-2 mb-2 text-white font-semibold">Add To Cart</a>
                             <!-- Add to Cart Button -->
-                            <button class="btn btn-success w-100">Add to Cart</button>
                         </div>
                     </div>
-                </a>
+                </div>
             </div>
             {% endfor %}
         </div>
-                
+    </div>
+</div>
+     
         
 
     <!-- Category Section -->
@@ -53,9 +55,6 @@
                     <div class="card-body d-flex flex-column justify-content-between">
                         <h5 class="card-title text-primary">{{ category.name }}</h5>
                         <p class="card-text text-muted">{{ category.items.count }} items</p>
-                        <div class="mt-auto">
-                            <button class="btn btn-outline-primary w-100">Explore</button>
-                        </div>
                     </div>
                 </a>
             </div>

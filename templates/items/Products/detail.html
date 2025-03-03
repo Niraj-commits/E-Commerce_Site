@@ -32,23 +32,32 @@
 
     <!-- Related Items -->
     <div class="container">
-        <h2 class="mb-4 text-center text-dark fs-1 font-weight-bold">Related Items</h2>
+        <h2 class="mb-4 text-center text-dark text-4xl font-bold">Related Items</h2>
         <div class="row">
             {% for item in related_items %}
             <div class="col-md-4 mb-4">
-                <div class="card shadow-lg border-0 bg-light rounded-xl">
-                    <img src="{{ item.image.url }}" class="card-img-top item-detail-image rounded-3" alt="{{ item.name }}">
-                    <div class="card-body">
-                        <h5 class="card-title item-detail-title text-dark font-weight-bold">{{ item.name }}</h5>
-                        <p class="card-text item-detail-price text-muted">Price: Rs. {{ item.price }}</p>
-                        <p class="card-text item-detail-availability text-muted">Available: {% if item.quantity > 0 %}Yes{% else %}No{% endif %}</p>
-                        <a href="{% url 'item_details' item.id %}" class="btn btn-primary item-detail-view-details-btn w-100 py-2 text-white shadow-sm">View Details</a>
+                <!-- Wrap the entire card with an anchor tag -->
+                <a href="{% url 'item_details' item.id %}" class="card-link no-underline focus:outline-none">
+                    <div class="card shadow-lg border-0 bg-light rounded-xl w-80 mx-auto">
+                        <!-- Image Section with Padding -->
+                        <div class="p-4"> <!-- Add padding around the image -->
+                            <img src="{{ item.image.url }}" class="card-img-top w-full h-64 object-contain rounded-t-xl" alt="{{ item.name }}">
+                        </div>
+    
+                        <!-- Details Section -->
+                        <div class="card-body p-4">
+                            <h5 class="card-title text-dark font-bold text-lg">{{ item.name }}</h5>
+                            <p class="text-muted">Price: Rs. {{ item.price }}</p>
+                            <p class="text-muted">Available: {% if item.quantity > 0 %}Yes{% else %}No{% endif %}</p>
+                            <a href="{% url 'item_details' item.id %}" class="btn btn-primary w-full py-2 text-white no-underline focus:outline-none">View Details</a>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
             {% endfor %}
         </div>
     </div>
+    
 
     <!-- Reviews Section -->
     <hr class="my-5">

@@ -3,52 +3,54 @@
 {% block title %}My Items{% endblock %}
 
 {% block body %}
-<h1 class="text-success text-center fs-2 fw-bold">Your Products</h1>
+<h1 class="text-success text-center fs-2 fw-bold mb-1">Your Products</h1>
 <br>
 
-<div class="container py-4">
-  <div class="row align-items-center g-3">
-    
-    <!-- Left Side: Actions -->
-    <div class="col-md-4 col-12 d-flex align-items-center">
-      <h2 class="me-3 text-lg fw-semibold">Actions:</h2>
-      {% if request.user.is_authenticated %}
-      <a href="{% url 'create_item' %}" class="btn btn-info text-white fw-bold shadow-sm me-2">+ Add Item</a>
-      <a href="{% url 'create_category' %}" class="btn btn-warning text-dark fw-bold shadow-sm">+ Add Category</a>
-      {% endif %}
-    </div>
+<!-- Filter Form -->
+<form method="get" action="{% url 'myProducts' %}">
+  <div class="container mb-4">
+    <div class="row g-3 align-items-center justify-content-between flex-wrap">
+      
+      <!-- Actions Section -->
+      <div class="col-lg-auto col-md-3 col-12 d-flex align-items-center flex-wrap gap-2">
+        <h2 class="me-3 text-lg fw-semibold mb-0">Actions:</h2>
+        {% if request.user.is_authenticated %}
+          <a href="{% url 'create_item' %}" class="btn btn-info text-white fw-bold shadow-sm">+ Add Item</a>
+          <a href="{% url 'create_category' %}" class="btn btn-warning text-dark fw-bold shadow-sm">+ Add Category</a>
+        {% endif %}
+      </div>
 
-    <!-- Date Filters -->
-    <div class="col-md-4 col-12">
-      <div class="d-flex gap-3">
+      <!-- Date Filters and Search -->
+      <div class="col-lg-auto col-md-5 col-12 d-flex flex-wrap align-items-center gap-3">
         <div class="d-flex align-items-center">
-          <label for="from-date" class="me-2 fw-semibold">From:</label>
-          <input type="date" id="from-date" class="form-control shadow-sm">
+          <label for="from-date" class="me-2 fw-semibold mb-0">From:</label>
+          <input type="date" id="from-date" name="from_date" class="form-control shadow-sm w-auto"
+                 value="{{ request.GET.from_date|default_if_none:'' }}">
         </div>
         <div class="d-flex align-items-center">
-          <label for="to-date" class="me-2 fw-semibold">To:</label>
-          <input type="date" id="to-date" class="form-control shadow-sm">
+          <label for="to-date" class="me-2 fw-semibold mb-0">To:</label>
+          <input type="date" id="to-date" name="to_date" class="form-control shadow-sm w-auto"
+                 value="{{ request.GET.to_date|default_if_none:'' }}">
+        </div>
+        <div class="d-flex align-items-center">
+          <label for="search" class="me-2 fw-semibold mb-0">Search:</label>
+          <input type="text" id="search" name="search" class="form-control shadow-sm w-auto" placeholder="Search..."
+                 value="{{ request.GET.search|default_if_none:'' }}">
         </div>
       </div>
+
+      <!-- Submit Button -->
+      <div class="col-lg-auto col-md-2 col-12 d-flex justify-content-md-end justify-content-center">
+        <input type="submit" value="Filter" class="btn btn-primary fw-bold shadow-sm">
+      </div>
+
     </div>
-
-    <!-- Submit Button -->
-   <!-- Submit Button -->
-<div class="col-md-4 col-12 text-end ml-6">
-  <div class="input-group w-75 mx-auto">
-    <input type="submit" value="Submit" class="btn btn-primary fw-bold shadow-sm w-100">
   </div>
-</div>
+</form>
 
-
-  </div>
-</div>
-
-<br>
-
-<!-- Styled Table -->
+<!-- Display Filtered Items in Table -->
 <table class="table table-hover text-center border rounded shadow-sm">
-  <thead >
+  <thead class="table-dark">
     <tr>
       <th scope="col">Sn</th>
       <th scope="col">Name</th>
@@ -60,8 +62,9 @@
       <th scope="col">Actions</th>
     </tr>
   </thead>
-  <tbody>
-    {% for item in items %}
+  <tbody> 
+    <!-- Here the filter.qs is queryset of the filtered data -->
+    {% for item in filter.qs %}
     <tr>
       <th scope="row">{{ forloop.counter }}</th>
       <td>{{ item.name }}</td>
@@ -75,34 +78,35 @@
           <a href="{% url 'item_details' item.id %}" class="btn btn-outline-success btn-sm shadow-sm">View</a>
           <a href="{% url 'edit_items' item.id %}" class="btn btn-outline-primary btn-sm shadow-sm">Edit</a>
 
-          <!-- Delete Button -->
-          <button type="button" class="btn btn-outline-danger btn-sm shadow-sm" data-bs-toggle="modal"
-            data-bs-target="#deleteModal{{ item.id }}">
-            Delete
-          </button>
-        </div>
+   <!-- Button trigger modal -->
+<button type="button" class="btn btn-outline-danger btn-sm shadow-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Delete
+</button>
 
-        <!-- Modal -->
-        <div class="modal fade" id="deleteModal{{ item.id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ item.id }}" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content shadow-lg">
-              <div class="modal-header bg-danger text-white">
-                <h5 class="modal-title fw-bold" id="deleteModalLabel{{ item.id }}">Delete Item</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body text-center">
-                <p class="fw-bold">Are you sure you want to delete <span class="text-danger">{{ item.name }}</span>?</p>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary btn-sm shadow-sm" data-bs-dismiss="modal">Cancel</button>
-                <a href="{% url 'delete_items' item.id %}" class="btn btn-danger btn-sm shadow-sm">Delete</a>
-              </div>
-            </div>
-          </div>
-        </div>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content bg-white border border-red-100 shadow-lg rounded-lg">
+      <div class="modal-header bg-red-500 border-b border-red-400 text-gray-700 p-3">
+        <h5 class="modal-title text-lg font-semibold text-light" id="exampleModalLabel">Delete</h5>
+        <button type="button" class="btn-close text-gray-700" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-3 text-gray-700">
+        Are you sure you want to delete it?
+      </div>
+      <div class="modal-footer p-3 space-x-2">
+        <button type="button" class="btn btn-primary text-light hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-gray-400 rounded-md px-4 py-1" data-bs-dismiss="modal">Close</button>
+        <a href="{% url 'delete_items' item.id %}" class="btn btn-danger bg-red-500 text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-300 rounded-md px-4 py-1 shadow-sm">Delete</a>
+      </div>
+    </div>
+  </div>
+</div>
 
       </td>
     </tr>
+    {% empty %}
+      <tr>
+        <td colspan="8">No items found.</td>
+      </tr>
     {% endfor %}
   </tbody>
 </table>
