@@ -31,8 +31,7 @@
                         <div class="d-flex flex-column mt-auto">
                             <!-- View Details Button with anchor tag for redirection -->
                             <a href="{% url 'item_details' item.id %}" class="btn btn-info w-full py-2 mb-2 text-white font-semibold">View Details</a>
-                            <a href="/" class="btn btn-success w-full py-2 mb-2 text-white font-semibold">Add To Cart</a>
-                            <!-- Add to Cart Button -->
+                            <a href="{% url 'buy_product' item.id %}" class="btn btn-success w-full py-2 mb-2 text-white font-semibold">Buy Product</a>
                         </div>
                     </div>
                 </div>

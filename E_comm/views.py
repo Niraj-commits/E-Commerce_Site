@@ -150,7 +150,45 @@ def DeleteCategory(request,pk):
 
 @login_required
 @user_passes_test(is_buyer)
-def AddToCart(request):
-    pass
 
+def PurchaseDetail(request, pk):
+    item = Item.objects.get(pk = pk)
+    
+    if request.method == "POST":
+        got_quantity = request.POST.get("total")
+        if got_quantity is not None:
+                got_quantity = int(got_quantity)
+                if got_quantity > 0:
+                    if item.quantity >= got_quantity:
+                        item.quantity -= got_quantity
+                        item.save()
+                        messages.success(request, "You have successfully purchased the item!")
+                        return redirect("/")
+                    else:
+                        messages.error(request, "Not enough stock available.")
+                else:
+                    messages.error(request, "Quantity must be greater than zero.")
+        else:
+            messages.error(request,"Field Cannot be empty")
+    return render(request, 'items/sell/buy_product.html', {"item": item})
 
+@login_required
+@user_passes_test(is_seller)
+def AddProducts(request, pk):
+    item = Item.objects.get(pk = pk)
+    context = {"items":item}
+    
+    if request.method == "POST":
+        got_quantity = request.POST.get("total")
+        if got_quantity is not None:
+                got_quantity = int(got_quantity)
+                if got_quantity > 0:
+                    item.quantity += got_quantity
+                    item.save()
+                    messages.success(request, "You have successfully purchased the item!")
+                    return redirect("myProducts")
+                else:
+                    messages.error(request, "Quantity must be greater than zero.")
+        else:
+            messages.error(request,"Field Cannot be empty")
+    return render(request, 'items/Products/add_product_quantity.html',context)

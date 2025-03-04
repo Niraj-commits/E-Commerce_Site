@@ -8,6 +8,7 @@ urlpatterns = [
     path('', home,name='index'),
     path('contact/',contact,name='contact'),
     path('myProducts/',MyProducts,name = 'myProducts'),
+    path('myProducts/<pk>/addProducts/',AddProducts,name='addProducts'),
     path('create/',NewProduct,name='create_item'),
     path('mycategories/',NewCategory,name='create_category'),
     path('category/',ViewCategory,name='MyCategories'),
@@ -16,5 +17,6 @@ urlpatterns = [
     path('<pk>/',ViewProduct,name = 'item_details'),
     path('<pk>/delete/',DeleteProducts,name = 'delete_items'),
     path('<pk>/edit/',EditProducts,name = 'edit_items'),
+    path('<pk>/buy',PurchaseDetail,name='buy_product'),
 
 ]+static(settings.MEDIA_URL,document_root =settings.MEDIA_ROOT)

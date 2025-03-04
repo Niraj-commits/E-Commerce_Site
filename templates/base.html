@@ -26,7 +26,6 @@
                     <a href="{% url 'myProducts' %}" class="text-lg font-medium text-gray-700 hover:text-blue-600 transition duration-300">My Products</a>
                     <a href="{% url 'logout' %}" class="text-lg font-medium text-gray-700 hover:text-red-600 transition duration-300">Logout</a>
                 {% else %}
-                    <a href="/" class="text-lg font-medium text-gray-700 hover:text-blue-600 transition duration-300">Cart</a>
                     <a href="{% url 'logout' %}" class="text-lg font-medium text-gray-700 hover:text-red-600 transition duration-300">Logout</a>
                 {% endif %}
             {% else %}

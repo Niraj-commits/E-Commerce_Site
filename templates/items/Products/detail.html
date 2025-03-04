@@ -26,7 +26,7 @@
                 <p class="fs-4 text-dark"><strong>Description: </strong><br> {{ single_item.description }}</p>
             {% endif %}
 
-            <a href="#" class="btn btn-success mt-4 w-100 shadow-lg font-weight-bold text-white py-2">Contact Seller</a>
+            <a href="{% url 'buy_product' single_item.id %}" class="btn btn-success mt-4 w-100 shadow-lg font-weight-bold text-white py-2">Buy Product</a>
         </div>
     </div>
 
@@ -36,15 +36,12 @@
         <div class="row">
             {% for item in related_items %}
             <div class="col-md-4 mb-4">
-                <!-- Wrap the entire card with an anchor tag -->
                 <a href="{% url 'item_details' item.id %}" class="card-link no-underline focus:outline-none">
                     <div class="card shadow-lg border-0 bg-light rounded-xl w-80 mx-auto">
-                        <!-- Image Section with Padding -->
-                        <div class="p-4"> <!-- Add padding around the image -->
+                        <div class="p-4">
                             <img src="{{ item.image.url }}" class="card-img-top w-full h-64 object-contain rounded-t-xl" alt="{{ item.name }}">
                         </div>
     
-                        <!-- Details Section -->
                         <div class="card-body p-4">
                             <h5 class="card-title text-dark font-bold text-lg">{{ item.name }}</h5>
                             <p class="text-muted">Price: Rs. {{ item.price }}</p>
